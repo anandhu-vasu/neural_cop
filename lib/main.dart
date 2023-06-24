@@ -1,3 +1,4 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:neural_cop/utils/globals.dart';
 import 'package:neural_cop/views/home_view.dart';
@@ -7,6 +8,7 @@ import 'controllers/notification_controller.dart';
 
 Future<void> main() async {
   await NotificationController.initializeLocalNotifications();
+  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
   runApp(const MainApp());
 }
 

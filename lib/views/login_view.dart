@@ -56,10 +56,11 @@ class _LoginViewState extends State<LoginView> {
                 obscureText: true,
               ),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15))),
                 onPressed: () async {
@@ -78,7 +79,10 @@ class _LoginViewState extends State<LoginView> {
                         color: Colors.red, icon: Icons.close);
                   }
                 },
-                child: const Text("LOGIN"),
+                child: const Text(
+                  "LOGIN",
+                  style: TextStyle(fontSize: 16),
+                ),
               )
             ],
           ),

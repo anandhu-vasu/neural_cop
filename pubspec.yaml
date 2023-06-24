@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   awesome_notifications: ^0.7.4+1
+  fast_cached_network_image: ^1.2.0
   flutter:
     sdk: flutter
   http: ^1.0.0

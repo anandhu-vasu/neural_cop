@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
 
     ApiController.init().then((api) async {
       _api = api;
-      _timer = Timer.periodic(const Duration(seconds: 1), (_) async {
+      _timer = Timer.periodic(const Duration(seconds: 5), (_) async {
         _threatController.add(await api.fetchThreats());
       });
       setState(() {
@@ -60,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
                               BorderRadius.vertical(top: Radius.circular(30))),
                       builder: (context) => Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 40, horizontal: 20),
+                              vertical: 40, horizontal: 40),
                           child: FutureBuilder<Map<String, dynamic>?>(
                               future: _api.userProfile(
                                   uid!), // a previously-obtained Future<String> or null
@@ -91,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
                                       ),
                                       ListTile(
                                         leading: const Icon(Icons.phone),
-                                        title: Text("${user['phone']}"),
+                                        title: Text(user['phone']),
                                       ),
                                       ListTile(
                                         leading: const Icon(
@@ -162,8 +162,18 @@ class _HomeViewState extends State<HomeView> {
               child: Column(
                 children: <Widget>[
                   if (hostname != null)
-                    Image.network(
-                        "$hostname/${threats[index]['file_location']}"),
+                    SizedBox(
+                      height: 275,
+                      child: Image.network(
+                        "$hostname/${threats[index]['file_location']}",
+                        loadingBuilder: (context, child, loadingProgress) =>
+                            (loadingProgress == null)
+                                ? child
+                                : Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                      ),
+                    ),
                   Row(
                     children: [
                       if (uid != null) ...[

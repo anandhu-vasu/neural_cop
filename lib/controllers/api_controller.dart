@@ -46,12 +46,12 @@ class ApiController {
 
   Future<Map<String, dynamic>?> userProfile(int uid) async {
     try {
-      var endpoint = "/security_profile/{$uid}";
+      var endpoint = "/security_profile/$uid";
       var response = await http.get(Uri.parse(baseUrl + endpoint));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data =
-            Map<String, dynamic>.from(jsonDecode(response.body));
+            Map<String, dynamic>.from(jsonDecode(response.body)[0]);
         return data;
       }
     } catch (e) {}
@@ -83,7 +83,7 @@ class ApiController {
         }
         prefs.setInt('threat_count', data.length);
 
-        return data;
+        return List.from(data.reversed);
       }
     } catch (e) {}
     return [];
@@ -91,7 +91,7 @@ class ApiController {
 
   Future<void> removeThreat(int id) async {
     try {
-      var endpoint = "/false_positive/{$id}";
+      var endpoint = "/false_positive/$id";
       var response = await http.get(Uri.parse(baseUrl + endpoint));
 
       if (response.statusCode == 200) {
@@ -102,9 +102,8 @@ class ApiController {
 
   Future<void> forwardThreat(int id) async {
     try {
-      var endpoint = "/forward/{$id}";
+      var endpoint = "/forward/$id";
       var response = await http.get(Uri.parse(baseUrl + endpoint));
-
       if (response.statusCode == 200) {
         showSnackBar("Threat forwarded to Police.");
       }
